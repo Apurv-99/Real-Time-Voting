@@ -17,7 +17,7 @@ This Docker Compose file allows you to easily spin up Zookkeeper, Kafka, Spark m
   
 ## Screenshots
 
-<img width="500" height="1000" alt="image" src="https://github.com/user-attachments/assets/26097729-64b6-48b0-8d9a-595e6faa97fc" />
+<img width="1000" height="1000" alt="image" src="https://github.com/user-attachments/assets/26097729-64b6-48b0-8d9a-595e6faa97fc" />
 
 <img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/fc66ff8d-a033-4c04-9ad8-3683ef5bb972" />
 
