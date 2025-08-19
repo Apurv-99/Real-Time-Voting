@@ -13,11 +13,9 @@ def delivery_report(err, msg):
 
 def get_candidate_data(cursor):
     cursor.execute("""
-        SELECT row_to_json(t)
-        FROM (
-            SELECT candidate_id, candidate_name, party_affiliation FROM candidates
-        ) t;
-    """)
+            SELECT row_to_json(t)
+            FROM (SELECT candidate_id, candidate_name, party_affiliation FROM candidates)t;""")
+    
     candidates = [candidate[0] for candidate in cursor.fetchall()]
     if not candidates:
         raise Exception("No candidates found in the database. Please populate the 'candidates' table.")
@@ -37,7 +35,6 @@ if __name__ == "__main__":
             'enable.auto.commit': False
         })
         consumer.subscribe(['voters'])
-        print("Vote processing script started. Waiting for new voters...")
         while True:
             msg = consumer.poll(1.0)
             if msg is None:
@@ -83,7 +80,7 @@ if __name__ == "__main__":
                 conn.rollback()
 
     except KeyboardInterrupt:
-        print("Shutting down gracefully...")
+        print("Shutting down")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
     finally:

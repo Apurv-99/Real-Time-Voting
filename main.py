@@ -10,9 +10,7 @@ def create_tables(conn, cur):
             candidate_name VARCHAR(255),
             party_affiliation VARCHAR(255),
             biography TEXT,
-            photo_url TEXT
-        )
-    """)
+            photo_url TEXT)""")
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS voters (
@@ -26,9 +24,7 @@ def create_tables(conn, cur):
             email VARCHAR(255),
             phone_number VARCHAR(255),
             picture TEXT,
-            registered_age INTEGER
-        )
-    """)
+            registered_age INTEGER)""")
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS votes (
@@ -36,9 +32,7 @@ def create_tables(conn, cur):
             candidate_id VARCHAR(255),
             voting_time TIMESTAMP,
             vote int DEFAULT 1,
-            PRIMARY KEY (voter_id, candidate_id)
-        )
-    """)
+            PRIMARY KEY (voter_id, candidate_id))""")
 
     conn.commit()
 
@@ -57,9 +51,8 @@ def generate_candidates(cursor, conn, number):
 
             cursor.execute("""
                         INSERT INTO candidates (candidate_id, candidate_name, party_affiliation, biography, photo_url)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """, (
-                candidate_id, candidate_name, party_affiliation, biography, photo_url))
+                        VALUES (%s, %s, %s, %s, %s)""", 
+                        (candidate_id, candidate_name, party_affiliation, biography, photo_url))
             conn.commit()
         else:
             raise Exception("Failed to fetch candidate data from randomuser.me")
@@ -84,8 +77,8 @@ def generate_voters(cursor, conn):
         }
         cursor.execute("""
             INSERT INTO voters (voter_id, voter_name, date_of_birth, gender, city, state, country, email, phone_number, picture, registered_age)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+            (
             voter_data["voter_id"],
             voter_data["voter_name"],
             voter_data["date_of_birth"],

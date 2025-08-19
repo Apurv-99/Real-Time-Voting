@@ -16,7 +16,6 @@ DB_CONNECTION_STRING = "host=localhost dbname=voting user=postgres password=post
 
 @st.cache_resource
 def create_kafka_consumer(topic_name):
-    """Creates and returns a cached Kafka consumer."""
     consumer = Consumer({
         'bootstrap.servers': KAFKA_BOOTSTRAP_SERVERS,
         'group.id': 'real-time-dashboard-group-main',
@@ -49,23 +48,15 @@ def fetch_master_vote_data():
     conn.close()
     return df
 
-# Function to fetch voting statistics from PostgreSQL database
 def fetch_voting_stats():
     try:
-        # Connect to PostgreSQL database
         conn = psycopg2.connect("host=localhost dbname=voting user=postgres password=postgres")
         cur = conn.cursor()
 
-        # Fetch total number of voters
-        cur.execute("""
-            SELECT count(*) voters_count FROM voters
-        """)
+        cur.execute("SELECT count(*) voters_count FROM voters")
         voters_count = cur.fetchone()[0]
 
-        # Fetch total number of candidates
-        cur.execute("""
-            SELECT count(*) candidates_count FROM candidates
-        """)
+        cur.execute("SELECT count(*) candidates_count FROM candidates")
         candidates_count = cur.fetchone()[0]
         
         cur.close()
@@ -175,9 +166,6 @@ def update_data():
             st.pyplot(donut_fig)
 
     st.dataframe(results[['candidate_name', 'party_affiliation', 'total_votes']])
-
-    # Location data can be handled similarly if needed, but for now, it's okay as is
-    # ... (location logic)
 
 
 def sidebar():
